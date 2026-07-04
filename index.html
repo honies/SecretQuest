@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#FFF1F6" />
+<title>Маленькое приключение ❤️</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ================= ФОН: живые частицы ================= -->
+  <div id="bg-scene" aria-hidden="true">
+    <div id="bg-glow"></div>
+    <div id="particles-layer"></div>
+  </div>
+
+  <!-- ================= ВЕРХНЯЯ ПАНЕЛЬ ================= -->
+  <header id="top-bar">
+    <button id="btn-back" class="icon-btn is-hidden" aria-label="Назад" title="Назад">
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button id="btn-forward" class="icon-btn is-hidden" aria-label="Вперёд" title="Вперёд">
+      <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div id="progress-wrap" aria-hidden="true">
+      <div id="progress-track">
+        <div id="progress-fill"></div>
+        <div id="progress-heart"><svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg></div>
+      </div>
+      <span id="progress-label">0%</span>
+    </div>
+
+    <div id="top-actions">
+      <button id="btn-sound" class="icon-btn" aria-label="Звук" title="Звук">
+        <span id="sound-icon">🔊</span>
+      </button>
+      <button id="btn-theme" class="icon-btn" aria-label="Тема" title="Тема">
+        <span id="theme-icon">🌙</span>
+      </button>
+      <button id="btn-restart" class="icon-btn" aria-label="Начать сначала" title="Начать сначала">
+        <svg viewBox="0 0 24 24"><path d="M4 4v6h6M20 20v-6h-6M4.5 15a8 8 0 0014.6 3M19.5 9A8 8 0 004.9 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= КОРНЕВОЙ КОНТЕЙНЕР ЭКРАНОВ ================= -->
+  <main id="app">
+
+    <!-- ---------- ЭКРАН ЗАГРУЗКИ ---------- -->
+    <section class="screen is-active" id="screen-loading" data-screen="loading">
+      <div class="loading-heart"><svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg></div>
+      <p class="loading-text">загружаем маленькое приключение...</p>
+      <div class="loading-bar"><div class="loading-bar-fill" id="loading-fill"></div></div>
+    </section>
+
+    <!-- ---------- ЭКРАН ПРИВЕТСТВИЯ ---------- -->
+    <section class="screen" id="screen-welcome" data-screen="welcome">
+      <div class="glass-card welcome-card">
+        <div class="welcome-emoji"><svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg></div>
+        <h1 class="title-xl">У меня есть небольшая игра<br/>для тебя</h1>
+        <p class="subtitle">Она займёт всего несколько минут ✨</p>
+        <button class="btn-primary" id="btn-start">Начать</button>
+      </div>
+    </section>
+
+    <!-- ---------- МИНИ-ИГРА 1 ---------- -->
+    <section class="screen" id="screen-game1" data-screen="game1">
+      <div class="game-header">
+        <h2>Лови милые штучки <span>🎀</span></h2>
+        <p class="game-hint" id="g1-hint">Лови милые смайлики, пока летят: <b id="g1-count">0</b>/<span id="g1-total">8</span></p>
+      </div>
+      <div class="game-stage" id="g1-stage"></div>
+    </section>
+
+    <!-- ---------- МИНИ-ИГРА 2 ---------- -->
+    <section class="screen" id="screen-game2" data-screen="game2">
+      <div class="game-header">
+        <h2>Найди пары</h2>
+        <p class="game-hint">Открывай карточки и находи одинаковые</p>
+      </div>
+      <div class="memory-grid" id="g2-grid"></div>
+    </section>
+
+    <!-- ---------- МИНИ-ИГРА 3 ---------- -->
+    <section class="screen" id="screen-game3" data-screen="game3">
+      <div class="game-header">
+        <h2>Собери пазл <span>🐸</span></h2>
+        <p class="game-hint">Меняй кусочки местами, чтобы собрать картинку</p>
+      </div>
+      <div class="puzzle-wrap">
+        <div class="puzzle-grid" id="g3-grid"></div>
+      </div>
+    </section>
+
+    <!-- ---------- МИНИ-ИГРА 4 ---------- -->
+    <section class="screen" id="screen-game4" data-screen="game4">
+      <div class="game-header">
+        <h2>Собери букет <span>🌸</span></h2>
+        <p class="game-hint">Перетащи все цветочки в вазу</p>
+      </div>
+      <div class="bouquet-wrap">
+        <div class="flowers-tray" id="g4-tray"></div>
+        <div class="vase" id="g4-vase">
+          <div class="vase-body">🏺</div>
+          <div class="vase-flowers" id="g4-vase-flowers"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- ЭКРАН ЗАВЕРШЕНИЯ ИГРЫ (общий шаблон) ---------- -->
+    <section class="screen" id="screen-complete" data-screen="complete">
+      <div class="glass-card complete-card">
+        <div class="complete-emoji" id="complete-emoji">❤️</div>
+        <h2 class="complete-title" id="complete-title">Великолепно!</h2>
+        <p class="complete-text" id="complete-text">Ты отлично справляешься</p>
+        <button class="btn-primary" id="btn-continue">Дальше</button>
+      </div>
+    </section>
+
+    <!-- ---------- ФИНАЛЬНЫЙ ЭКРАН ---------- -->
+    <section class="screen" id="screen-final" data-screen="final">
+      <div id="final-dim"></div>
+      <div class="final-content">
+        <div class="final-text" id="final-text"></div>
+        <div class="final-heart" id="final-heart"><svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg></div>
+        <h1 class="final-question" id="final-question"><span class="final-question-heart"><svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg></span>Будешь моей девушкой?</h1>
+        <div class="final-buttons" id="final-buttons">
+          <button class="btn-yes" id="btn-yes"><svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg> Да</button>
+          <button class="btn-no" id="btn-no">🙈 Подумать ещё</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- ЭКРАН ПРАЗДНОВАНИЯ ---------- -->
+    <section class="screen" id="screen-celebration" data-screen="celebration">
+      <canvas id="celebration-canvas"></canvas>
+      <div class="celebration-content">
+        <div class="celebration-heart">💖</div>
+        <h1 class="celebration-title">Теперь официально ❤️</h1>
+        <p class="celebration-subtitle">Это начало нашей истории.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= МОДАЛКА ПОДТВЕРЖДЕНИЯ ================= -->
+  <div id="modal-overlay">
+    <div class="glass-card modal-card">
+      <p class="modal-text">Начать всё сначала? Весь прогресс будет сброшен 🥺</p>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="modal-cancel">Отмена</button>
+        <button class="btn-primary" id="modal-confirm">Начать сначала</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
