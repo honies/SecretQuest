@@ -196,7 +196,7 @@
   const GAME_SEQUENCE = [
     { key: "game1", screen: "game1", percent: 25, emoji: "❤️", title: "Великолепно!", text: "Ты отлично справилась ❤️", next: "game2" },
     { key: "game2", screen: "game2", percent: 50, emoji: "🌸", title: "У тебя отлично получается!", text: "Идём дальше ✨", next: "game3" },
-    { key: "game3", screen: "game3", percent: 75, emoji: "🐸", title: "Ква-фантастика!", text: "Лягушка очень довольна", next: "game4" },
+    { key: "game3", screen: "game3", percent: 75, emoji: "🐸", title: "Ква-фантастика!", text: "Минхао очень доволен", next: "game4" },
     { key: "game4", screen: "game4", percent: 100, emoji: "😊", title: "Ты прошла всё!", text: "Дальше — самое важное...", next: "final" },
   ];
 
